@@ -3,6 +3,8 @@
  *
  *  Branch from Tomáš Mrázek 2018 original file to port radiator valve to Hubitat.
  *
+ *** THIS IS A WORK IN PROGRESS AS I LEARN TO RE-WRITE DEVICE DRIVERS FOR HUBITAT. USE AT OWN PERIL.
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
  *
@@ -14,7 +16,7 @@
  *
  */
 metadata {
-  definition (name: "Fibaro Heat Controller", namespace: "Tomas-Mrazek", author: "Tomáš Mrázek") {
+  definition (name: "Fibaro Heat Controller", namespace: "Tim-Owen", author: "Tim Owen") {
     fingerprint mfr: "010F", prod: "1301", model: "1000"
 
     capability "Battery"
@@ -32,30 +34,6 @@ metadata {
     command "setThermostatSetpointDown"
   }
    
-
-    standardTile("off", "device.valve", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-      state "thermostatMode", action: "thermostatMode.off", icon: "st.vents.vent-closed"
-    }
-
-
-    standardTile("heat", "device.thermostatMode", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-      state "thermostatMode", action: "thermostatMode.heat", icon: "st.vents.vent-open-text"
-    }
-
-    valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-      state "battery", label: 'valve battery\n${currentValue}%', unit: "%"
-    }
-
-    valueTile("batterySensor", "device.batterySensor", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-      state "batterySensor", label: 'sensor battery\n${currentValue}%', unit: "%"
-    }
-
-    standardTile("refresh", "command.refresh", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-      state "refresh", label: 'refresh', action: "refresh.refresh", icon: "st.secondary.refresh-icon"
-    }
-
-  }
-
   preferences {
     input name: "overrideScheduleDuration", title: "Override Schedule duration (minutes between 10 and 10000)", description: "", type: "number", range: "10..10000", defaultValue: "240", required: true
     input name: "openWindowDetector", title: "Open Window Detector", description: "", type: "bool", defaultValue: true
